@@ -1,0 +1,80 @@
+%%
+% Percentages script, Maria Yanez Lopez, 
+% This version reads all the files coming from
+% Organise_data, such as Ins_data, Tau_data etc
+% Input: metabolite_data files (8), from Organise_data
+% It calculates the % increase ratio of the four time points (1 hr, 2hrs,
+% 3hrs and 4hrs, with an average of the two baselines as baseline).
+% It organises the data in groups:
+%     Perc_ratios_(sum_)metabolite
+%     Perc_ratios_(sum_)metabolite_AD
+%     Perc_ratios_(sum_)metabolite_WT
+%     Perc_ratios_(sum_)metabolite_WTc
+%     Perc_ratios_(sum_)metabolite_LPS
+%     Perc_ratios_(sum_)metabolite_LPS_AD
+%     Perc_ratios_(sum_)metabolite_LPS_WT
+%     Perc_ratios_(sum_)metabolite_LPS_WTc
+%     Perc_ratios_(sum_)metabolite_PBS
+%     Perc_ratios_(sum_)metabolite_PBS_AD
+%     Perc_ratios_(sum_)metabolite_PBS_WT
+%     Perc_ratios_(sum_)metabolite_PBS_WTc
+%       according to Subtype = {'AD','AD','WTc','AD','WT','AD','WTc','AD','AD','AD','WT','WT','AD','WT','WT','WTc','AD','AD','WTc','WTc','WTc','AD','WTc','WTc','AD','WT','WT','AD','AD','AD','AD','WTc','WT','AD','WT','AD','WT','AD'};
+%       and Treatment = {'LPS', 'LPS', 'LPS', 'LPS', 'LPS', 'LPS', 'LPS', 'LPS', 'LPS', 'LPS', 'LPS', 'PBS', 'PBS', 'PBS', 'LPS', 'LPS', 'LPS', 'PBS', 'PBS', 'PBS', 'LPS', 'LPS', 'LPS', 'PBS', 'PBS', 'LPS', 'PBS', 'PBS', 'LPS', 'PBS', 'PBS', 'PBS', 'PBS', 'PBS', 'LPS', 'LPS', 'PBS', 'PBS'};  
+% OUTPUT: 
+        % %_data.mat containing the metabolite data
+        % organised in the groups described above.
+clear all;
+clc;
+
+%Load data
+load('Ins_data');
+load('Glu_data');
+load('Glx_data');
+load('Tau_data');
+load('NAA_data');
+load('tNAA_data');
+load('tCho_data');
+load('tCr_data');
+
+%Create variables        
+Perc_ratios_Glu = zeros(38,4);
+Perc_ratios_Ins = zeros(38,4);
+Perc_ratios_NAA = zeros(38,4);
+Perc_ratios_Tau = zeros(38,4);
+Perc_ratios_tCho = zeros(38,4);
+Perc_ratios_tNAA = zeros(38,4);
+Perc_ratios_tCr = zeros(38,4);
+Perc_ratios_Glx = zeros(38,4);
+Perc_ratios_sum_Glu = zeros(38,4);
+Perc_ratios_sum_Ins = zeros(38,4);
+Perc_ratios_sum_NAA = zeros(38,4);
+Perc_ratios_sum_Tau = zeros(38,4);
+Perc_ratios_sum_tCho = zeros(38,4);
+Perc_ratios_sum_tNAA = zeros(38,4);
+Perc_ratios_sum_tCr = zeros(38,4);
+Perc_ratios_sum_Glx = zeros(38,4);
+
+%Calculate percentage change
+for i = 1:38
+    
+        Perc_ratios_Glu(i) = 100.*((ratios_Glu(i,j) - ratios_Glu(i))./ratios_Glu(i));
+        Perc_ratios_Ins(i) = 100.*((ratios_Ins(i,j) - ratios_Ins(i))./ratios_Ins(i));
+        Perc_ratios_NAA(i) = 100.*((ratios_NAA(i,j) - ratios_NAA(i))./ratios_NAA(i));
+        Perc_ratios_Tau(i) = 100.*((ratios_Tau(i,j) - ratios_Tau(i))./ratios_Tau(i));
+        Perc_ratios_tCho(i) = 100.*((ratios_tCho(i,j) - ratios_tCho(i))./ratios_tCho(i));
+        Perc_ratios_tNAA(i) = 100.*((ratios_tNAA(i,j) - ratios_tNAA(i))./ratios_tNAA(i));
+        Perc_ratios_tCr(i) = 100.*((ratios_tCr(i,j) - ratios_tCr(i))./ratios_tCr(i));
+        Perc_ratios_Glx(i) = 100.*((ratios_Glx(i,j) - ratios_Glx(i))./ratios_Glx(i));
+        Perc_ratios_sum_Glu(i) = 100.*((ratios_sum_Glu(i,j) - ratios_sum_Glu(i))./ratios_sum_Glu(i));
+        Perc_ratios_sum_Ins(i,) = 100.*((ratios_sum_Ins(i,j) - ratios_sum_Ins(i))./ratios_sum_Ins(i));
+        Perc_ratios_sum_NAA(i,) = 100.*((ratios_sum_NAA(i,j) - ratios_sum_NAA(i))./ratios_sum_NAA(i));
+        Perc_ratios_sum_Tau(i,) = 100.*((ratios_sum_Tau(i,j) - ratios_sum_Tau(i))./ratios_sum_Tau(i));
+        Perc_ratios_sum_tCho(i,) = 100.*((ratios_sum_tCho(i,j) - ratios_sum_tCho(i))./ratios_sum_tCho(i));
+        Perc_ratios_sum_tNAA(i,) = 100.*((ratios_sum_tNAA(i,j) - ratios_sum_tNAA(i))./ratios_sum_tNAA(i));
+        Perc_ratios_sum_tCr(i,) = 100.*((ratios_sum_tCr(i,j) - ratios_sum_tCr(i))./ratios_sum_tCr(i));
+        Perc_ratios_sum_Glx(i,) = 100.*((ratios_sum_Glx(i,j) - ratios_sum_Glx(i))./ratios_sum_Glx(i));
+    
+end
+
+%% Save percentages data
+save('%_data.mat','Perc*');
